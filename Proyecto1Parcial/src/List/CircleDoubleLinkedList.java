@@ -6,6 +6,7 @@
 package List;
 
 import Interfaces.List;
+import Iterator.Iterator;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -67,8 +68,9 @@ public class CircleDoubleLinkedList <E> implements List<E>{
             last.setNext(node);
             node.setPrevious(last);
             last=node;
-            effective++;
+            
         }
+        effective++;
         return true;
     }
 
@@ -156,9 +158,17 @@ public class CircleDoubleLinkedList <E> implements List<E>{
         return last.getNext().getContent();
     }
 
+    public Node getFirstNode(){
+        return last.getNext();
+    }
+    
     @Override
     public E getLast() {
-        return last.getNext().getContent();
+        return last.getContent();
+    }
+    
+    public Node getLastNode(){
+        return last;
     }
 
     @Override
@@ -270,25 +280,7 @@ public class CircleDoubleLinkedList <E> implements List<E>{
         return s.toString();
     }
     
-    @Override
-    public boolean equals(Object o){
-        if (o==null || !(o instanceof CircleDoubleLinkedList)){
-            return false;
-        }
-        CircleDoubleLinkedList<E> other= (CircleDoubleLinkedList<E>) o;
-        if ((this.size()) != other.size()){
-                return false;
-        }
-        Node <E> j = other.last.getNext();
-        Node <E> k = this.last.getNext();
-        for (int i=0;i<effective;i++){
-            if (!(k.getContent().equals(j.getContent())))
-                return false;
-            j=j.getNext();
-            k=k.getNext();
-        }
-        return true;
-    }
+    
     
     private Node<E> nodeIndex(int index){
         if (index==0)
@@ -306,82 +298,98 @@ public class CircleDoubleLinkedList <E> implements List<E>{
         return null;
     }
     
-    public ListIterator<E> listIterator(int index){
+    public ListIterator<E> listIteratorNode(int index){
         ListIterator<E> i;
         i = new ListIterator<E>() {
-            private Node<E> p = nodeIndex(index);
-            private int currentIndex=index;
+        private Node<E> p = nodeIndex(index);
+        private int currentIndex=index;
             
-            @Override
-            public boolean hasNext() {
-                return true;
-            }
+        @Override
+        public boolean hasNext() {
+            return true;
+        }
 
-            @Override
-            public E next() {
-                E temp=p.getContent();
-                p=p.getNext();
-                if (currentIndex==effective-1){
-                    currentIndex=0;
-                }
-                if(!hasNext()){
-                    throw new NoSuchElementException();
-                }
-                return temp;
+        @Override
+        public E next() {
+            E temp=p.getContent();
+            p=p.getNext();
+            if (currentIndex==effective-1){
+                currentIndex=0;
             }
+            if(!hasNext()){
+                throw new NoSuchElementException();
+            }
+            return temp;
+        }
 
-            @Override
-            public boolean hasPrevious() {
-                return true;
-            }
+        @Override
+        public boolean hasPrevious() {
+            return true;
+        }
 
-            @Override
-            public E previous() {
-                E temp=p.getContent();
-                p=p.getPrevious();
-                if (currentIndex==0){
-                    currentIndex=effective-1;
-                }
-                if(!hasPrevious()){
-                    throw new NoSuchElementException();
-                }
-                return temp;
+        @Override
+        public E previous() {
+            E temp=p.getContent();
+            p=p.getPrevious();
+            if (currentIndex==0){
+                currentIndex=effective-1;
             }
+            if(!hasPrevious()){
+                throw new NoSuchElementException();
+            }
+            return temp;
+        }
 
-            @Override
-            public int nextIndex() {
-                return currentIndex + 1;
-            }
+        @Override
+        public int nextIndex() {
+            return currentIndex + 1;
+        }
 
-            @Override
-            public int previousIndex() {
-                return currentIndex - 1;
-            }
+        @Override
+        public int previousIndex() {
+            return currentIndex - 1;
+        }
 
-            @Override
-            public void remove() {
-                throw new UnsupportedOperationException("Not supported yet 1."); //To change body of generated methods, choose Tools | Templates.
-            }
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException("Not supported yet 1."); //To change body of generated methods, choose Tools | Templates.
+        }
 
-            @Override
-            public void set(E e) {
-                throw new UnsupportedOperationException("Not supported yet 2."); //To change body of generated methods, choose Tools | Templates.
-            }
+        @Override
+        public void set(E e) {
+            throw new UnsupportedOperationException("Not supported yet 2."); //To change body of generated methods, choose Tools | Templates.
+        }
 
-            @Override
-            public void add(E e) {
-                throw new UnsupportedOperationException("Not supported yet 3."); //To change body of generated methods, choose Tools | Templates.
-            }
+        @Override
+        public void add(E e) {
+            throw new UnsupportedOperationException("Not supported yet 3."); //To change body of generated methods, choose Tools | Templates.
+        }
             
         };
         return i;
     }
     
+    
+
     @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 41 * hash + Objects.hashCode(this.last);
-        hash = 41 * hash + this.effective;
-        return hash;
+    public Iterator<E> iterator() {
+        return new miIterator();
+    }
+    
+    public class miIterator<E> implements Iterator<E>{
+        Node<E> nv=getFirstNode();
+        @Override
+        public boolean hasNext() {
+            return nv!=null;
+        }
+
+        @Override
+        public E next() {
+            E element=null;
+            element=nv.getContent();
+            nv=nv.getNext();
+            return element;
+        }
+    
     }
 }

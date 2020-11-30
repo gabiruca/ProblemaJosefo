@@ -4,12 +4,14 @@
  * and open the template in the editor.
  */
 package Interfaces;
-
+import Iterable.Iterable;
 /**
  *
  * @author bllv1
- */
-public interface List<E> {
+ * @param <E>
+**/
+//Interface List con parametrizacion por tipo y extiende de la interface Iterable
+public interface List<E> extends Iterable<E>{
     int size();
     boolean isEmpty();
     boolean addFirst(E element);
