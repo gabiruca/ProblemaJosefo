@@ -7,7 +7,6 @@ package Principal;
 
 import Game.Personaje;
 import List.CircleDoubleLinkedList;
-import java.awt.Desktop.Action;
 import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.ListIterator;
