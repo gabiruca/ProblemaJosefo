@@ -9,7 +9,6 @@ import Interfaces.List;
 import Iterator.Iterator;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 
 
 /**
