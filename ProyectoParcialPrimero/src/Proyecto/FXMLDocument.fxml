@@ -140,6 +140,6 @@
                 </children>
             </HBox>
         </children></VBox>
-        <StackPane fx:id="PanelJuego" prefHeight="483.0" prefWidth="581.0" style="-fx-background-color: rgba(0,0,0,0.3)" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="10.0" />
+        <StackPane fx:id="panel" prefHeight="483.0" prefWidth="581.0" style="-fx-background-color: rgba(0,0,0,0.3)" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="210.0" AnchorPane.topAnchor="10.0" />
     </children>
 </AnchorPane>

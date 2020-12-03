@@ -6,13 +6,10 @@
 package Proyecto;
 
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 /**
  *
@@ -26,7 +23,7 @@ public class Main extends Application{
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-        
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         /*
         ImageView imageView = new ImageView();
         imageView.setImage(fondo);
@@ -35,7 +32,7 @@ public class Main extends Application{
         container.getChildren().add(imageView);
         */
         
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         Scene scene = new Scene(root);
         primaryStage.getIcons().add(new Image("\\Imagenes\\guerreroicono.png"));
         primaryStage.setTitle("El Problema de Flavio Josefo");

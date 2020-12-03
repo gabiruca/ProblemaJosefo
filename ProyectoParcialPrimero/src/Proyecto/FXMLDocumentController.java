@@ -31,36 +31,47 @@ import javafx.scene.layout.StackPane;
  */
 public class FXMLDocumentController implements Initializable {
     
-    @FXML
-    private Label label;
     
     @FXML
     private JFXSlider cantidadPersonajes;
+    
     @FXML
     private JFXSlider posicionInicio;
+    
     @FXML
     private JFXSlider nDesfase;
+    
     @FXML
     private JFXSlider diferenciaVelocidad;
+    
     @FXML
     private JFXButton start;
+    
     @FXML
     private JFXButton left;
+    
     @FXML
     private JFXButton right;
+    
     @FXML
     private Label cantidadPersonasL;
+    
     @FXML
     private Label nDesfaceL;
+    
     @FXML
     private Label posicionInicioL;
-    @FXML
+    
+    @FXML    
     private Label diferenciaVelocidadL;
+    
+    @FXML
+    private StackPane panel;
     
     private Image mSinEspada;
     private Image pConEspada;
     private Image pSinEspada;
-    private StackPane panel;
+    
     private String direccion;
     
     private ListIterator<Personaje> iterador;
@@ -77,10 +88,13 @@ public class FXMLDocumentController implements Initializable {
     
     
     //Metodos
+    @FXML
     public void pauseEjecution(){
         suspender = true;
     }
-    public void playEjecution(){
+    
+    @FXML
+    synchronized void playEjecution(){
         suspender = false;
     }
     
@@ -96,6 +110,7 @@ public class FXMLDocumentController implements Initializable {
         start.setDisable(true);
     }
     
+    @FXML
     private void reiniciarSimulacion() {
         try {
             suspender = false;
@@ -127,7 +142,7 @@ public class FXMLDocumentController implements Initializable {
         }
     }
         
-        public void llenarJuego(CircleDoubleLinkedList<Personaje> personaje, int valor) {
+        private void llenarJuego(CircleDoubleLinkedList<Personaje> personaje, int valor) {
         for (int indice = 0; indice < valor; indice++) {
             ImageView imgActual = new ImageView(pConEspada);
             imgActual.setFitWidth(200);
@@ -214,7 +229,8 @@ public class FXMLDocumentController implements Initializable {
         }
 
     }
-        public void asignarDireccion(javafx.event.ActionEvent event) {
+         @FXML
+        private void asignarDireccion(javafx.event.ActionEvent event) {
         start.setDisable(false);
         left.setDisable(false);
         right.setDisable(false);
