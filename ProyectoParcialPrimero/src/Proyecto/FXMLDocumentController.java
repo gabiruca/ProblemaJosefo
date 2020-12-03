@@ -1,3 +1,5 @@
+package Proyecto;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -72,119 +74,8 @@ public class FXMLDocumentController implements Initializable {
     private static Runnable controlThread;
     private int velocity;
 
-    public Label getLabel() {
-        return label;
-    }
-
-    public JFXSlider getCantidadPersonajes() {
-        return cantidadPersonajes;
-    }
-
-    public JFXSlider getPosicionInicio() {
-        return posicionInicio;
-    }
-
-    public JFXSlider getnDesfase() {
-        return nDesfase;
-    }
-
-    public JFXSlider getDiferenciaVelocidad() {
-        return diferenciaVelocidad;
-    }
-
-    public JFXButton getStart() {
-        return start;
-    }
-
-    public JFXButton getLeft() {
-        return left;
-    }
-
-    public JFXButton getRight() {
-        return right;
-    }
-
-    public Label getCantidadPersonasL() {
-        return cantidadPersonasL;
-    }
-
-    public Label getnDesfaceL() {
-        return nDesfaceL;
-    }
-
-    public Label getPosicionInicioL() {
-        return posicionInicioL;
-    }
-
-    public Label getDiferenciaVelocidadL() {
-        return diferenciaVelocidadL;
-    }
-
-    public Image getmSinEspada() {
-        return mSinEspada;
-    }
-
-    public Image getpConEspada() {
-        return pConEspada;
-    }
-
-    public Image getpSinEspada() {
-        return pSinEspada;
-    }
-
-    public StackPane getPanel() {
-        return panel;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public ListIterator<Personaje> getIterador() {
-        return iterador;
-    }
-
-    public CircleDoubleLinkedList<Personaje> getLinkedList() {
-        return linkedList;
-    }
-
-    public int getPosIniMuerte() {
-        return posIniMuerte;
-    }
-
-    public int getDesfase() {
-        return desfase;
-    }
-
-    public int getNumeroPersonas() {
-        return numeroPersonas;
-    }
-
-    public int getPersonasVivas() {
-        return personasVivas;
-    }
-
-    public static Thread getHilo() {
-        return hilo;
-    }
-
-    public boolean isSuspender() {
-        return suspender;
-    }
-
-    public static Runnable getControlThread() {
-        return controlThread;
-    }
-
-    public int getVelocity() {
-        return velocity;
-    }
     
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
+    
     //Metodos
     public void pauseEjecution(){
         suspender = true;
@@ -192,7 +83,9 @@ public class FXMLDocumentController implements Initializable {
     public void playEjecution(){
         suspender = false;
     }
-    private void iniciarSimulacion(java.awt.event.ActionEvent event) {
+    
+    @FXML
+    private void iniciarSimulation(ActionEvent event) {
         cantidadPersonajes.setDisable(true);
         posicionInicio.setDisable(true);
         nDesfase.setDisable(true);
@@ -202,6 +95,7 @@ public class FXMLDocumentController implements Initializable {
         hilo.start();
         start.setDisable(true);
     }
+    
     private void reiniciarSimulacion() {
         try {
             suspender = false;
@@ -320,7 +214,7 @@ public class FXMLDocumentController implements Initializable {
         }
 
     }
-        private void asignarDireccion(javafx.event.ActionEvent event) {
+        public void asignarDireccion(javafx.event.ActionEvent event) {
         start.setDisable(false);
         left.setDisable(false);
         right.setDisable(false);
