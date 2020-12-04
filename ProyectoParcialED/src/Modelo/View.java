@@ -8,6 +8,9 @@ package Modelo;
 import LinkedList.CircleDoubleLinkedList;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -29,6 +32,7 @@ public class View {
     private Model model;
     private ImageView sword;
     private ChoiceBox<String> direccionChoiceBox;
+    private ChoiceBox<Integer> stChoiceBox;
     private ChoiceBox<Integer> numeroNodos;
     private Slider velocidadSlider;
     private ChoiceBox<Integer> saltosBox;
@@ -57,7 +61,7 @@ public class View {
         HBox numeroNodosHbox= new HBox();
         Label numeroNodosLabel= new Label("Numero de jugadores:");
         numeroNodos= new ChoiceBox();
-        ArrayList<Integer> list= new ArrayList();
+        Stack<Integer> list= new Stack();
         for(int i=5;i<=20;i++){
             list.add(i);
         }
@@ -76,6 +80,18 @@ public class View {
         direccionHBox.getChildren().addAll(direccionLabel,direccionChoiceBox);
         direccionHBox.setAlignment(Pos.CENTER);
         
+        //Controlar indice de inicio
+        int sizeLP= model.getPersonas().size();
+        HBox stHBox = new HBox();
+        Label stLabel= new Label("Indice de inicio:");
+        stChoiceBox= new ChoiceBox<>();
+        Stack<Integer> listSt= new Stack<>();
+        for (int i=1; i<sizeLP+1;i++) listSt.push(i);
+        stChoiceBox.getItems().addAll(listSt);
+        stChoiceBox.setValue(1);
+        stHBox.getChildren().addAll(stLabel,stChoiceBox);
+        stHBox.setAlignment(Pos.CENTER);
+        
         //Control de la velocidad
         velocidadSlider= new Slider();
         velocidadSlider.setMin(0.5);
@@ -90,8 +106,8 @@ public class View {
         HBox saltosHBox = new HBox();
         Label saltosLabel= new Label("Saltos:");
         saltosBox= new ChoiceBox<>();
-        ArrayList<Integer> listSaltos= new ArrayList<>();
-        for (int i=0; i<5;i++) listSaltos.add(i);
+        Stack<Integer> listSaltos= new Stack<>();
+        for (int i=0; i<5;i++) listSaltos.push(i);
         saltosBox.getItems().addAll(listSaltos);
         saltosBox.setValue(1);
         saltosHBox.getChildren().addAll(saltosLabel,saltosBox);
@@ -108,21 +124,25 @@ public class View {
         Button stopButton= new Button("Finalizar");
         stopButton.setOnAction(controller.botonStopAction());
         
-        vbox.getChildren().addAll(numeroNodosHbox,direccionHBox,velocidadSlider,saltosHBox,playButton,pauseButton,stopButton);
+        vbox.getChildren().addAll(numeroNodosHbox,stHBox,direccionHBox,velocidadSlider,saltosHBox,playButton,pauseButton,stopButton);
         root.getChildren().addAll(pane,vbox);
         return new Scene(root,900,800);
     }
 
     public void inicializarCirculos(){
-       Iterator<Persona> ite=model.getPersonas().iterator();
+       Iterator<Persona> iterador=model.getPersonas().iterator();
        int tamano= model.getPersonas().size();
-       double radioCircunferencia= 11*tamano;
+       double radioCircunferencia= 12*tamano;
        double separacionAngulos=360/tamano;
        int cont=0;
        
-       while(ite.hasNext()){
-           Persona persona= ite.next();
-           imPersona=persona.getImage();
+       while(iterador.hasNext()){
+           Persona persona= iterador.next();
+           if(persona.getIsAlive()==true){
+                imPersona=persona.getImage();
+           }else if(persona.getIsAlive()==false){
+               setImPersona(new ImageView("Imagenes/MSinEspada.png"));
+           }
            double posX=-140+radioCircunferencia*Math.cos(Math.toRadians(separacionAngulos*cont));
            double posY=180+radioCircunferencia*Math.sin(Math.toRadians(separacionAngulos*cont));
            persona.setPosX(posX);
@@ -171,7 +191,7 @@ public class View {
     }
     
     public void moverEspada(double x,double y){
-       sword.setLayoutX(x-140);
+       sword.setLayoutX(x);
        sword.setLayoutY(y);
     }
    
@@ -181,8 +201,18 @@ public class View {
    }
    
    
-    //Setters y getters 
+    
+
+    //Setters y getters
    
+    public ImageView getImPersona() {
+        return imPersona;
+    }
+   
+    public void setImPersona(ImageView imPersona) {
+        this.imPersona = imPersona;
+    }
+
     public Slider getVelocidadSlider() {
         return velocidadSlider;
     }
