@@ -26,6 +26,6 @@ and open the template in the editor.
 }
 
 .root{
-    -fx-background-image: url(file:src/image/files/cave2.jpg);
+    -fx-background-image: url(file:src/Imagenes/cave2.jpg);
     -fx-background-size: 900 800;
 }

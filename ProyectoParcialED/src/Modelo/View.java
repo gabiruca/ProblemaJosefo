@@ -51,6 +51,8 @@ public class View {
         vbox.setAlignment(Pos.CENTER);
         vbox.setSpacing(30);
         
+        inicializarCirculos();
+        
         //Elegir numero de Jugadores
         HBox numeroNodosHbox= new HBox();
         Label numeroNodosLabel= new Label("Numero de jugadores:");
@@ -131,12 +133,12 @@ public class View {
            cont++;
        }
        
-       sword= new ImageView("image/files/sword.png");
+       sword= new ImageView("Imagenes/sword.png");
        moverEspada(model.getPersonas().getFirst());
        sword.setFitHeight(60);
        sword.setFitWidth(60);
        pane.getChildren().add(sword);
-       cambiarImagen();
+       //cambiarImagen();
        //mostrarPM(model.getPersonas().getFirst());
     }
         
@@ -158,7 +160,7 @@ public class View {
         CircleDoubleLinkedList<Persona> llPersonas= model.getPersonas();
         for (Persona p: llPersonas){
            if(p.getIsAlive()==false){
-               p.setImage(new ImageView("image/files/MSinEspada.png"));
+               p.setImage(new ImageView("Imagenes/MSinEspada.png"));
            }
        }
     }
@@ -174,7 +176,7 @@ public class View {
     }
    
    public void newSword(){
-       sword = new ImageView("image/files/sword.png");
+       sword = new ImageView("Imagenes/sword.png");
        pane.getChildren().add(sword);
    }
    

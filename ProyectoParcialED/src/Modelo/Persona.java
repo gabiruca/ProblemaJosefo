@@ -26,7 +26,7 @@ public class Persona implements Comparable<Persona>{
     public Persona(int indice) {
         this.indice = indice;
         isAlive= true;
-        this.imagenP= new ImageView("image/files/PSinEspada.png");  
+        this.imagenP= new ImageView("Imagenes/PSinEspada.png");  
     }
     
     public void matar( Persona persona, View view, long velocidad){

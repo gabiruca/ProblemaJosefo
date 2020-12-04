@@ -5,7 +5,6 @@
  */
 package Modelo;
 
-import Modelo.View;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -23,7 +22,7 @@ public class Controller {
     public Controller(View vista) {
         this.vista = vista;
     }
-   // Cuando cambias el numero de nodos
+
     public  ChangeListener<Number> numNodosListener() {
     return (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
         vista.getModel().getPersonas().clear();
@@ -33,7 +32,6 @@ public class Controller {
     };
     }
     
-    //Eventos al presionar Play
     public EventHandler<ActionEvent> botonPlayAction(){
         
         return (ActionEvent event) -> {
@@ -46,16 +44,7 @@ public class Controller {
             }
         };
     }
-    
-    //Eventos al presionar Circulos
-   /* public EventHandler<MouseEvent> circuloPresionado(Persona persona){
-        return (MouseEvent event) -> {
-            //view.lowlight(view.getModel().getPersonas().getFirst().getCircle());
-            //view.highlight(persona.getCircle());
-            view.getModel().getPersonas().setLast(persona.getIndice()-1);
-            view.moverEspada(persona);
-        };
-    }*/
+
     public EventHandler<ActionEvent> botonStopAction(){
         return (ActionEvent event) -> {
             vista.getModel().getPersonas().clear();
@@ -64,7 +53,7 @@ public class Controller {
             Platform.runLater(()->{vista.getPane().getChildren().remove(vista.getSword());});         
             vista.inicializarCirculos();
             vista.newSword();
-            //view.moverEspada(view.getModel().getPersonas().getFirst());
+            
         };
     }
     
