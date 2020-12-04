@@ -2,7 +2,6 @@
 package Modelo;
 
 import java.util.ListIterator;
-import javafx.application.Platform;
 import LinkedList.CircleDoubleLinkedList;
 /**
  *
@@ -58,47 +57,43 @@ public class Model {
         }
         
         @Override
+        @SuppressWarnings("empty-statement")
         public void run(){
-         int nodosRestantes= personas.size();
-        ListIterator<Persona> personsIte= personas.listIterator();
-        if("Derecha".equals(direccion)) {
-            asesino=personsIte.next();
-        }
-        else asesino= personsIte.previous();
-                while(nodosRestantes>2 && !pause){                
-                    int cont=0;
-                    while (cont <=saltos) {
-                        if ("Derecha".equals(direccion)) persona= personsIte.next();
-                        else persona= personsIte.previous();
-                        if(persona.getIsAlive() == true && asesino.compareTo(persona)!= 0) cont++;
+            int nodosRestantes= personas.size();
+            ListIterator<Persona> personsIte= personas.listIterator();
+            if("Derecha".equals(direccion))asesino=personsIte.next();
+            else asesino= personsIte.previous();
+            while(nodosRestantes>2 && !pause){                
+                int cont=0;
+                while (cont <saltos && nodosRestantes>1) {
+                    if ("Derecha".equals(direccion)) persona= personsIte.next();
+                    else persona= personsIte.previous();
+                    if(persona.getIsAlive() == true && asesino.compareTo(persona)!= 0){
+                        cont++;
+                    }else{
+                        persona=personsIte.next();
                     }
                     asesino.matar(persona, view,velocidad);
+                if("Derecha".equals(direccion)) nuevoAsesino=personsIte.next();
+                else nuevoAsesino= personsIte.previous();
+                while (nuevoAsesino.getIsAlive()==false) {
                     if("Derecha".equals(direccion)) nuevoAsesino=personsIte.next();
                     else nuevoAsesino= personsIte.previous();
-                    while (nuevoAsesino.getIsAlive()==false) {
-                        if("Derecha".equals(direccion)) nuevoAsesino=personsIte.next();
-                        else nuevoAsesino= personsIte.previous();    
-                    }
-
-                    asesino.pasarEspada(nuevoAsesino, view,velocidad);
-             
-                    nodosRestantes--;
-                    asesino=nuevoAsesino;
-                    while( pause== true);
-                    }
-                    if("Derecha".equals(direccion)) persona=personsIte.next();
-                    else persona= personsIte.previous();
-                    while (persona.getIsAlive()==false) {
-                        if("Derecha".equals(direccion)) persona=personsIte.next();
-                        else persona= personsIte.previous();           
-                    }
-                    Platform.runLater(()->{
-                       view.moverEspada(persona);
-                       persona.morir(); 
-                    });
-
+                }
+                asesino.pasarEspada(nuevoAsesino, view,velocidad);
+                nodosRestantes--;
+                asesino=nuevoAsesino;
+                }
+            }
+            if("Derecha".equals(direccion)) persona=personsIte.next();
+            else persona= personsIte.previous();
+            while (persona.getIsAlive()==false) {
+                if("Derecha".equals(direccion)) persona=personsIte.next();
+                else persona= personsIte.previous();  
+            }
         }
     }
+    
     
     
     //Setter y getters

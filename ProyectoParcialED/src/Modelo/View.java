@@ -6,10 +6,7 @@
 package Modelo;
 
 import LinkedList.CircleDoubleLinkedList;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Stack;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -37,10 +34,12 @@ public class View {
     private Slider velocidadSlider;
     private ChoiceBox<Integer> saltosBox;
     private ImageView imPersona;
+    private int perInicio;
+    private Integer nodos;
     
      public View(){
         pane=new Pane();
-        controller=new Controller(this);
+        controller=new Controller(this,model);
         model= new Model(this);
  
     }
@@ -69,6 +68,7 @@ public class View {
         numeroNodos.setValue(12);
         numeroNodos.getSelectionModel().selectedIndexProperty().addListener(controller.numNodosListener());
         numeroNodosHbox.getChildren().addAll(numeroNodosLabel,numeroNodos);
+        setNodos(numeroNodos.getValue());
         numeroNodosHbox.setAlignment(Pos.CENTER);
         
         //Elegir la direccion de giro
@@ -91,6 +91,7 @@ public class View {
         stChoiceBox.setValue(1);
         stHBox.getChildren().addAll(stLabel,stChoiceBox);
         stHBox.setAlignment(Pos.CENTER);
+        setPerInicio(stChoiceBox.getValue());
         
         //Control de la velocidad
         velocidadSlider= new Slider();
@@ -149,47 +150,22 @@ public class View {
            persona.setPosY(posY);
            imPersona.setLayoutX(posX);
            imPersona.setLayoutY(posY);
-           pane.getChildren().add(imPersona);
+           Label label= new Label(Integer.toString(persona.getIndice()+1));
+           label.setLayoutX(posX+350);
+           label.setLayoutY(posY+200);
+           label.setAlignment(Pos.CENTER_LEFT);
+           pane.getChildren().addAll(imPersona,label);
            cont++;
        }
        
-       sword= new ImageView("Imagenes/sword.png");
-       moverEspada(model.getPersonas().getFirst());
-       sword.setFitHeight(60);
-       sword.setFitWidth(60);
-       pane.getChildren().add(sword);
-       //cambiarImagen();
-       //mostrarPM(model.getPersonas().getFirst());
     }
-        
-    public void borrarCirculos(){
-       pane.getChildren().clear();
-    }
-
-    public void setSword(ImageView sword) {
-        this.sword = sword;
-    }
-   
    //Movimiento de espada
     public void moverEspada(Persona persona){
        sword.setLayoutX(persona.getPosX()+350);
        sword.setLayoutY(persona.getPosY()+200);
+       
     }
 
-    public void cambiarImagen(){
-        CircleDoubleLinkedList<Persona> llPersonas= model.getPersonas();
-        for (Persona p: llPersonas){
-           if(p.getIsAlive()==false){
-               p.setImage(new ImageView("Imagenes/MSinEspada.png"));
-           }
-       }
-    }
-    
-    public void mostrarPM(Persona p){
-       p.getImage().setLayoutX(p.getPosX());
-       p.getImage().setLayoutY(p.getPosY());
-    }
-    
     public void moverEspada(double x,double y){
        sword.setLayoutX(x);
        sword.setLayoutY(y);
@@ -198,13 +174,49 @@ public class View {
    public void newSword(){
        sword = new ImageView("Imagenes/sword.png");
        pane.getChildren().add(sword);
+       sword.setFitHeight(60);
+       sword.setFitWidth(60);
    }
    
+   public void borrarCirculos(){
+       pane.getChildren().clear();
+    }
    
-    
+    public void setSword(ImageView sword) {
+        this.sword = sword;
+    }
+   
+   
+   
+   
+   
+     //Setters y getters
+    public ChoiceBox<Integer> getStChoiceBox() {
+        return stChoiceBox;
+    }
 
-    //Setters y getters
-   
+    public void setStChoiceBox(ChoiceBox<Integer> stChoiceBox) {
+        this.stChoiceBox = stChoiceBox;
+    }
+
+    public Integer getNodos() {
+        return nodos;
+    }
+
+    public void setNodos(Integer nodos) {
+        this.nodos = nodos;
+    }
+
+    
+    public int getPerInicio() {
+        return perInicio;
+    }
+
+  
+    public void setPerInicio(Integer perInicio) {   
+        this.perInicio = perInicio;
+    }
+
     public ImageView getImPersona() {
         return imPersona;
     }

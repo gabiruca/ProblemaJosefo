@@ -5,9 +5,10 @@
  */
 package Modelo;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -17,10 +18,13 @@ import javafx.event.EventHandler;
  * @author User
  */
 public class Controller {
+    ExecutorService executorService = Executors.newFixedThreadPool(10);
     private final View vista;
+    private final Model model;
 
-    public Controller(View vista) {
+    public Controller(View vista, Model model) {
         this.vista = vista;
+        this.model=model;
     }
 
     public  ChangeListener<Number> numNodosListener() {
@@ -36,24 +40,26 @@ public class Controller {
         
         return (ActionEvent event) -> {
             try {
-                if(vista.getModel().getPause() ==true) vista.getModel().setPause(false);
-                else vista.getModel().suicidios(vista.getSaltosBox().getValue(),vista.getDireccionChoiceBox().getValue(),(long) vista.getVelocidadSlider().getValue());
+                if(vista.getModel().getPause() ==true) {
+                    vista.getModel().setPause(false);
+                    
+                }else {
+                    
+                    vista.getModel().suicidios(vista.getSaltosBox().getValue(),vista.getDireccionChoiceBox().getValue(),(long) vista.getVelocidadSlider().getValue());
+                }
+                
             } catch (InterruptedException ex) {
                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                 Thread.currentThread().interrupt();
             }
+            
         };
+        
     }
 
     public EventHandler<ActionEvent> botonStopAction(){
         return (ActionEvent event) -> {
-            vista.getModel().getPersonas().clear();
-            vista.borrarCirculos();
-            vista.getModel().setPersonas(vista.getModel().inicializarPersonas(vista.getNumeroNodos().getValue(), 0));
-            Platform.runLater(()->{vista.getPane().getChildren().remove(vista.getSword());});         
-            vista.inicializarCirculos();
-            vista.newSword();
-            
+            System.exit(0);
         };
     }
     

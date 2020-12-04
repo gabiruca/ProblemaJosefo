@@ -17,8 +17,6 @@ public class Persona implements Comparable<Persona>{
     private double posX;
     private double posY;
     private ImageView imagenP;
-    private boolean esAsesino;
-    
         
     public void morir(){
         this.isAlive=false;
@@ -28,16 +26,17 @@ public class Persona implements Comparable<Persona>{
         this.indice = indice;
         isAlive= true;
         this.imagenP= new ImageView("Imagenes/PSinEspada.png");  
-        this.esAsesino=false;
     }
     
     public void matar( Persona persona, View view, long velocidad){
         Platform.runLater(()->{
-            view.moverEspada(persona);
-            persona.morir();  
+            view.newSword();
+            view.moverEspada(this);
+            persona.morir();
         });
         try {
             Thread.sleep(1000/velocidad);
+            
         } catch (InterruptedException ex) {
             Logger.getLogger(Persona.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -45,7 +44,8 @@ public class Persona implements Comparable<Persona>{
     
     public void pasarEspada (Persona nuevoAsesino, View view, long velocidad){
         Platform.runLater(()->{
-            view.moverEspada(nuevoAsesino);
+            view.borrarCirculos();
+            view.inicializarCirculos();
         });
         try {
             Thread.sleep(1000/velocidad);
