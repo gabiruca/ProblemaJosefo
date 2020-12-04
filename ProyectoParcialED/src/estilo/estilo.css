@@ -1,0 +1,31 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 04/12/2020, 1:59:34
+    Author     : Gabriela
+*/
+.label{
+    -fx-text-fill: green;
+    -fx-font-family: "Britannic Bold";
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+}
+
+.button {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: green;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-padding: 18px;
+    -fx-text-align: center;
+    -fx-font-size: 15px;
+}
+
+.root{
+    -fx-background-image: url(file:src/image/files/cave2.jpg);
+    -fx-background-size: 900 800;
+}
