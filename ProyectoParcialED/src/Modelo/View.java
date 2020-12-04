@@ -65,7 +65,7 @@ public class View {
             list.add(i);
         }
         numeroNodos.getItems().addAll(list);
-        numeroNodos.setValue(12);
+        numeroNodos.setValue(6);
         numeroNodos.getSelectionModel().selectedIndexProperty().addListener(controller.numNodosListener());
         numeroNodosHbox.getChildren().addAll(numeroNodosLabel,numeroNodos);
         setNodos(numeroNodos.getValue());

@@ -7,6 +7,7 @@ package Principal;
 import Modelo.View;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 /**
  *
@@ -24,6 +25,7 @@ public class Main extends Application{
         Scene scene=view.iniciarEscena();
         primaryStage.setScene(scene);
         scene.getStylesheets().add("estilo/estilo.css");
+        primaryStage.getIcons().add(new Image("/Imagenes/sword.png"));
         primaryStage.setTitle("El problema de Josefo");
         primaryStage.show();
     }

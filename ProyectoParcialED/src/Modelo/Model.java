@@ -20,7 +20,7 @@ public class Model {
     
     public Model(View view){
         this.personas= new CircleDoubleLinkedList();
-        personas= inicializarPersonas(12, 0);
+        personas= inicializarPersonas(6, 0);
         this.view= view;
         pause=false;
     }
@@ -91,6 +91,37 @@ public class Model {
                 if("Derecha".equals(direccion)) persona=personsIte.next();
                 else persona= personsIte.previous();  
             }
+            if("Izquierda".equals(direccion))asesino=personsIte.next();
+            else asesino= personsIte.previous();
+            while(nodosRestantes>2 && !pause){                
+                int cont=0;
+                while (cont <saltos && nodosRestantes>1) {
+                    if ("Izquierda".equals(direccion)) persona= personsIte.next();
+                    else persona= personsIte.previous();
+                    if(persona.getIsAlive() == true && asesino.compareTo(persona)!= 0){
+                        cont++;
+                    }else{
+                        persona=personsIte.next();
+                    }
+                    asesino.matar(persona, view,velocidad);
+                if("Izquierda".equals(direccion)) nuevoAsesino=personsIte.next();
+                else nuevoAsesino= personsIte.previous();
+                while (nuevoAsesino.getIsAlive()==false) {
+                    if("Izquierda".equals(direccion)) nuevoAsesino=personsIte.next();
+                    else nuevoAsesino= personsIte.previous();
+                }
+                asesino.pasarEspada(nuevoAsesino, view,velocidad);
+                nodosRestantes--;
+                asesino=nuevoAsesino;
+                }
+            }
+            if("Izquierda".equals(direccion)) persona=personsIte.next();
+            else persona= personsIte.previous();
+            while (persona.getIsAlive()==false) {
+                if("Izquierda".equals(direccion)) persona=personsIte.next();
+                else persona= personsIte.previous();  
+            }
+            
         }
     }
     
