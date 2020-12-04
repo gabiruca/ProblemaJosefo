@@ -5,20 +5,8 @@
  */
 package Principal;
 
+import Vista.Vista;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -26,16 +14,18 @@ import javafx.stage.Stage;
  * @author Gabriela
  */
 public class Main extends Application {
-    private final Image fondo = new Image("file:src/Imagenes/cave2.jpg");
+    /*private final Image fondo = new Image("file:src/Imagenes/cave2.jpg");
     private final StackPane container = new StackPane();    
     Scene scene = new Scene(container,900,700);
     public  StackPane buttonBox=new StackPane();   
     public Button GStart=new Button("Juego Nuevo");
     public Button Salir=new Button("Salir");
     private final StackPane containergame = new StackPane();
-    Scene scene2 = new Scene(containergame,900,700);
+    Scene scene2 = new Scene(containergame,900,700);*/
     
     public void start(Stage primaryStage) throws Exception {
+        Vista vista=new Vista();
+       /* primaryStage.setScene(scene);
         primaryStage.setTitle("El Problema de Flavio Josefo");
         primaryStage.getIcons().add(new Image("file:src/Imagenes/guerreroicono.jpg"));
         ImageView imageView = new ImageView();
@@ -70,8 +60,9 @@ public class Main extends Application {
         });
         
         container.setPadding(new Insets(350));        
-        container.getChildren().addAll(imageView, buttonBox);
-        primaryStage.setScene(scene);
+        container.getChildren().addAll(imageView, buttonBox);*/
+        primaryStage.setScene(vista.Escenainicio());
+        primaryStage.setTitle("flavio josefo");
         primaryStage.show();
         
         

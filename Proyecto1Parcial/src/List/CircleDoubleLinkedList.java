@@ -6,7 +6,8 @@
 package List;
 
 import Interfaces.List;
-import Iterator.Iterator;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
@@ -25,6 +26,10 @@ public class CircleDoubleLinkedList <E> implements List<E>{
     }
     
     
+    public void clear(){
+        last=null;
+        effective=0;
+    }
     
     @Override
     public int size() {
@@ -296,7 +301,68 @@ public class CircleDoubleLinkedList <E> implements List<E>{
         }
         return null;
     }
-    
+    public ListIterator<E> listIterator(){
+        return new ListIterator<E>() {
+
+            Node<E> nodo=last.getNext();
+            @Override
+            public boolean hasPrevious(){
+                boolean valor=false;
+                if(size()>0) valor=true;
+                return valor;
+            }
+            @Override
+            public E previous(){
+                if(!hasPrevious()){
+                    throw new NoSuchElementException();
+                }
+                E valorDev= nodo.getContent();
+                nodo=nodo.getPrevious();
+                return valorDev;
+            }
+            @Override
+            public boolean hasNext() {
+                boolean valor=false;
+                if(size()>0) valor=true;
+                return valor;
+            }
+
+            @Override
+            public E next() {
+                if(!hasNext()){
+                    throw new NoSuchElementException();
+                }
+                E valorDev= nodo.getContent();
+                nodo=nodo.getNext();
+                return valorDev;
+            }
+
+            @Override
+            public int nextIndex() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public int previousIndex() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void set(E e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+
+            @Override
+            public void add(E e) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        };
+    }
     public ListIterator<E> listIteratorNode(int index){
         ListIterator<E> i;
         i = new ListIterator<E>() {
@@ -370,25 +436,71 @@ public class CircleDoubleLinkedList <E> implements List<E>{
     
     
 
-    @Override
+     @Override
     public Iterator<E> iterator() {
-        return new miIterator();
-    }
-    
-    public class miIterator<E> implements Iterator<E>{
-        Node<E> nv=getFirstNode();
-        @Override
-        public boolean hasNext() {
-            return nv!=null;
-        }
+        return new Iterator<E>() {
+            int posNext=0;
+            Node<E> nodoNext=last.getNext();
+            int posPrevious=effective-1;
+            Node<E> nodoPrevious=last;
+            UnsupportedOperationException unsupport= new UnsupportedOperationException();
+            @Override
+            public boolean hasNext() {
+                boolean valor=false;
+                if(posNext<size() ) valor=true;
+                return valor;
+            }
 
-        @Override
-        public E next() {
-            E element=null;
-            element=nv.getContent();
-            nv=nv.getNext();
-            return element;
-        }
+            @Override
+            public E next() {
+                if(!hasNext()){
+                    throw new NoSuchElementException();
+                }
+                E valorDev= nodoNext.getContent();
+                nodoNext=nodoNext.getNext();
+                posNext++;
+                return valorDev;
+            }
+
+        };
+    }
+
+    @Override
+    public boolean remove(E element, Comparator<E> cmp) {
+        boolean valorDev=false;
+        Node<E> n=last.getNext();
+        do{
+           if(cmp.compare(element,n.getContent())==0){
+                valorDev=true;
+                n.getPrevious().setNext(n.getNext());
+                n.getNext().setPrevious(n.getPrevious());
+                n.setNext(null);
+                n.setPrevious(null);
+                effective--;
+                return valorDev;
+            }
+            n=n.getNext();
+           
+        }while(n!= last.getNext());
+            
+        
+        return valorDev;
+    }
+        
     
+    public void setLast(int index){
+        if(index>size()||index<0|| isEmpty()){
+            throw new NoSuchElementException();
+        }
+        Node<E> nodo=last.getNext();
+        int cont=0;
+        do{
+            if(index==cont){
+                last=nodo;
+                break;
+            }
+            nodo=nodo.getNext();
+            cont++;
+        }while(nodo!=last.getNext());
     }
 }

@@ -3,30 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Interfaces;
+package Interface;
+
 import java.util.Comparator;
+
 /**
  *
  * @author bllv1
- * @param <E>
-**/
-//Interface List con parametrizacion por tipo y extiende de la interface Iterable
-public interface List<E> extends Iterable<E>{
-    int size();
-    boolean isEmpty();
+ */
+
+//Interface List con parametrizacion por tipo
+public interface List<E> extends Iterable<E> {
     boolean addFirst(E element);
-    boolean addLast (E element);
+    boolean addLast(E element);
     boolean removeFirst();
     boolean removeLast();
-    E remove(int index);
-    boolean remove(E element);
     E getFirst();
     E getLast();
-    boolean contains(E element);
     boolean insert(int index, E element);
+    boolean contains(E element);
     E get(int index);
-    E set(int index, E element);
-    int indexOf(E element);   
+    int indexOf(E element);
+    boolean isEmpty();
+    E remove(int index);
     boolean remove(E element, Comparator<E> cmp);
-    
+    E set(int index, E element);
+    int size();
 }
