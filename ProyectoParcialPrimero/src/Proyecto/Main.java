@@ -16,26 +16,14 @@ import javafx.stage.Stage;
  * @author Gabriela
  */
 public class Main extends Application{
-/*private final Image fondo = new Image("file:src/Imagenes/cave2.jpg");
-    private final StackPane container = new StackPane();
-    Scene scene = new Scene(container,900,700);*/
     
     
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        /*
-        ImageView imageView = new ImageView();
-        imageView.setImage(fondo);
-        imageView.setFitHeight(700);
-        imageView.setFitWidth(900);
-        container.getChildren().add(imageView);
-        */
-        
-//        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         Scene scene = new Scene(root);
         primaryStage.getIcons().add(new Image("\\Imagenes\\guerreroicono.png"));
-        primaryStage.setTitle("El Problema de Flavio Josefo");
+        primaryStage.setTitle("El problema de Falvio Josefo");
         primaryStage.setScene(scene);
         primaryStage.show();
         
