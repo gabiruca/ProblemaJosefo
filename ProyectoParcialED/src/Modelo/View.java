@@ -94,18 +94,7 @@ public class View {
         direccionHBox.getChildren().addAll(direccionLabel,direccionChoiceBox);
         direccionHBox.setAlignment(Pos.CENTER);
         
-        //Controlar indice de inicio
-        int sizeLP= model.getPersonas().size();
-        HBox stHBox = new HBox();
-        Label stLabel= new Label("Indice de inicio:");
-        stChoiceBox= new ChoiceBox<>();
-        Stack<Integer> listSt= new Stack<>();
-        for (int i=1; i<sizeLP+1;i++) listSt.push(i);
-        stChoiceBox.getItems().addAll(listSt);
-        stChoiceBox.setValue(1);
-        stHBox.getChildren().addAll(stLabel,stChoiceBox);
-        stHBox.setAlignment(Pos.CENTER);
-        setPerInicio(stChoiceBox.getValue());
+        
         
         //Control de la velocidad
         velocidadSlider= new Slider();
@@ -156,7 +145,7 @@ public class View {
         stopButton.setOnAction(controller.botonStopAction());
         
         
-        vbox.getChildren().addAll(numeroNodosHbox,stHBox,direccionHBox,velocidadSlider,saltosHBox, seleccionar,jugadores,playButton,pauseButton,stopButton);
+        vbox.getChildren().addAll(numeroNodosHbox,direccionHBox,velocidadSlider,saltosHBox, seleccionar,jugadores,playButton,pauseButton,stopButton);
         root.getChildren().addAll(pane,vbox);
         return new Scene(root,900,800);
     }
