@@ -6,11 +6,14 @@
 package Modelo;
 
 import LinkedList.CircleDoubleLinkedList;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.Stack;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -36,11 +39,14 @@ public class View {
     private ImageView imPersona;
     private int perInicio;
     private Integer nodos;
+    private CheckBox seleccionar;
+    private ChoiceBox<Integer> jugadores;
     
      public View(){
         pane=new Pane();
         controller=new Controller(this,model);
         model= new Model(this);
+        seleccionar = new CheckBox("Seleccionar soldado inicial");
  
     }
     public Scene iniciarEscena(){
@@ -70,6 +76,14 @@ public class View {
         numeroNodosHbox.getChildren().addAll(numeroNodosLabel,numeroNodos);
         setNodos(numeroNodos.getValue());
         numeroNodosHbox.setAlignment(Pos.CENTER);
+        
+        numeroNodos.setOnAction(e->{
+            if(seleccionar.isSelected()){
+                seleccionar.setSelected(false);
+                jugadores.setDisable(true);
+            }
+            
+        });
         
         //Elegir la direccion de giro
         HBox direccionHBox = new HBox();
@@ -114,6 +128,22 @@ public class View {
         saltosHBox.getChildren().addAll(saltosLabel,saltosBox);
         saltosHBox.setAlignment(Pos.CENTER);
         
+        //Elegir quien inicia
+        jugadores = new ChoiceBox<>();
+        jugadores.setDisable(true);
+        
+        seleccionar.setOnAction(e->{
+            jugadores.getItems().clear();
+            if(seleccionar.isSelected()){
+                jugadores.setDisable(false);
+                for (int i = 1; i <= numeroNodos.getValue(); i++) {
+                   jugadores.getItems().add(i);
+                }
+            }else
+                jugadores.setDisable(true);
+        });
+        
+        
         //Botones
         //Inicio
         Button playButton= new Button("Iniciar");
@@ -125,7 +155,8 @@ public class View {
         Button stopButton= new Button("Finalizar");
         stopButton.setOnAction(controller.botonStopAction());
         
-        vbox.getChildren().addAll(numeroNodosHbox,stHBox,direccionHBox,velocidadSlider,saltosHBox,playButton,pauseButton,stopButton);
+        
+        vbox.getChildren().addAll(numeroNodosHbox,stHBox,direccionHBox,velocidadSlider,saltosHBox, seleccionar,jugadores,playButton,pauseButton,stopButton);
         root.getChildren().addAll(pane,vbox);
         return new Scene(root,900,800);
     }
@@ -260,4 +291,9 @@ public class View {
     public void setModel(Model model) {
         this.model = model;
     }
+
+    public ChoiceBox<Integer> getJugadores() {
+        return jugadores;
+    }
+    
 }

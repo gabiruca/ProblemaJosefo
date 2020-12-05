@@ -44,8 +44,12 @@ public class Controller {
                     vista.getModel().setPause(false);
                     
                 }else {
+                    if(vista.getJugadores().getValue()!=null)
+                        vista.getModel().suicidios(vista.getSaltosBox().getValue(),vista.getDireccionChoiceBox().getValue(),(long) vista.getVelocidadSlider().getValue(),vista.getJugadores().getValue());    
+                    else
+                        vista.getModel().suicidios(vista.getSaltosBox().getValue(),vista.getDireccionChoiceBox().getValue(),(long) vista.getVelocidadSlider().getValue(),0);
                     
-                    vista.getModel().suicidios(vista.getSaltosBox().getValue(),vista.getDireccionChoiceBox().getValue(),(long) vista.getVelocidadSlider().getValue());
+                    
                 }
                 
             } catch (InterruptedException ex) {

@@ -35,8 +35,8 @@ public class Model {
         return personas;
     }
     
-    public void suicidios(int saltos, String direccion, long velocidad) throws InterruptedException{
-        animacionSuicidios= new SuicidiosGUI(direccion,velocidad,saltos);
+    public void suicidios(int saltos, String direccion, long velocidad, int inicio) throws InterruptedException{
+        animacionSuicidios= new SuicidiosGUI(direccion,velocidad,saltos, inicio);
         animacionSuicidios.start();
    }
     
@@ -47,23 +47,40 @@ public class Model {
         private String direccion;
         private long velocidad;
         private int saltos;
+        private int inicio;
 
-        public SuicidiosGUI(String direccion, long velocidad,int saltos) {
+        public SuicidiosGUI(String direccion, long velocidad,int saltos, int inicio) {
             this.direccion = direccion;
             this.asesino= null;
             this.persona= null;
             this.nuevoAsesino=null;
             this.velocidad=velocidad;
             this.saltos= saltos;
+            this.inicio = inicio;
         }
         
         @Override
         @SuppressWarnings("empty-statement")
         public void run(){
             int nodosRestantes= personas.size();
+            
             ListIterator<Persona> personsIte= personas.listIterator();
-            if("Derecha".equals(direccion))asesino=personsIte.next();
-            else asesino= personsIte.previous();
+            if("Derecha".equals(direccion)){
+                for (int i = 0; i < inicio; i++) {
+                    asesino=personsIte.next();
+                }
+                
+                if (inicio == 0)
+                    asesino= personsIte.next(); 
+            }
+            else {
+                for (int i = 0; i < inicio; i++) {
+                    asesino=personsIte.previous();
+                }
+                if (inicio == 0)
+                asesino= personsIte.previous();
+            }
+            
             while(!pause && nodosRestantes>0){                
                 int cont=0;
                 while (cont <=saltos && nodosRestantes>1) {
@@ -94,13 +111,47 @@ public class Model {
             }
             
             //otra direccion
-            if("Izquierda".equals(direccion))asesino=personsIte.next();
-            else asesino= personsIte.previous();
+            if("Izquierda".equals(direccion)){
+                if (inicio == 0)
+                    asesino= personsIte.next(); 
+                else{
+                    for (int i = 0; i < inicio; i++) {
+                    asesino=personsIte.next();
+                }
+                }                              
+                
+            }
+            else {
+                if (inicio == 0)
+                    asesino= personsIte.previous();
+                else{
+                    for (int i = 0; i < inicio; i++) {
+                        asesino=personsIte.previous();
+                    }
+                }
+            }
             while(nodosRestantes>0 && !pause){                
                 int cont=0;
                 while (cont <=saltos && nodosRestantes>1) {
-                    if ("Izquierda".equals(direccion)) persona= personsIte.next();
-                    else persona= personsIte.previous();
+                    if ("Izquierda".equals(direccion)) {
+                        if (inicio == 0)
+                            persona= personsIte.next(); 
+                        else{
+                            for (int i = 0; i < inicio; i++) {
+                                persona=personsIte.next();
+                            }
+                        }
+                    }
+                    
+                    else {
+                        if (inicio == 0)
+                            persona= personsIte.previous();
+                        else{
+                            for (int i = 0; i < inicio; i++) {
+                                persona=personsIte.previous();
+                            }
+                        }
+                    }
                     cont++;
                     while(persona.getIsAlive() != true ){
                         persona=personsIte.next();
