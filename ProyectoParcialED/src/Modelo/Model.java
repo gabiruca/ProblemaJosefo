@@ -3,6 +3,7 @@ package Modelo;
 
 import java.util.ListIterator;
 import LinkedList.CircleDoubleLinkedList;
+import javafx.application.Platform;
 /**
  *
  * @author Gabriela
@@ -20,7 +21,7 @@ public class Model {
     
     public Model(View view){
         this.personas= new CircleDoubleLinkedList();
-        personas= inicializarPersonas(6, 0);
+        personas= inicializarPersonas(12, 0);
         this.view= view;
         pause=false;
     }
@@ -63,14 +64,13 @@ public class Model {
             ListIterator<Persona> personsIte= personas.listIterator();
             if("Derecha".equals(direccion))asesino=personsIte.next();
             else asesino= personsIte.previous();
-            while(nodosRestantes>2 && !pause){                
+            while(!pause && nodosRestantes>0){                
                 int cont=0;
-                while (cont <saltos && nodosRestantes>1) {
+                while (cont <=saltos && nodosRestantes>1) {
                     if ("Derecha".equals(direccion)) persona= personsIte.next();
                     else persona= personsIte.previous();
-                    if(persona.getIsAlive() == true && asesino.compareTo(persona)!= 0){
-                        cont++;
-                    }else{
+                    cont++;
+                    while(persona.getIsAlive() != true ){
                         persona=personsIte.next();
                     }
                     asesino.matar(persona, view,velocidad);
@@ -89,18 +89,20 @@ public class Model {
             else persona= personsIte.previous();
             while (persona.getIsAlive()==false) {
                 if("Derecha".equals(direccion)) persona=personsIte.next();
-                else persona= personsIte.previous();  
+                else persona= personsIte.previous(); 
+                
             }
+            
+            //otra direccion
             if("Izquierda".equals(direccion))asesino=personsIte.next();
             else asesino= personsIte.previous();
-            while(nodosRestantes>2 && !pause){                
+            while(nodosRestantes>0 && !pause){                
                 int cont=0;
-                while (cont <saltos && nodosRestantes>1) {
+                while (cont <=saltos && nodosRestantes>1) {
                     if ("Izquierda".equals(direccion)) persona= personsIte.next();
                     else persona= personsIte.previous();
-                    if(persona.getIsAlive() == true && asesino.compareTo(persona)!= 0){
-                        cont++;
-                    }else{
+                    cont++;
+                    while(persona.getIsAlive() != true ){
                         persona=personsIte.next();
                     }
                     asesino.matar(persona, view,velocidad);
@@ -114,14 +116,13 @@ public class Model {
                 nodosRestantes--;
                 asesino=nuevoAsesino;
                 }
-            }
             if("Izquierda".equals(direccion)) persona=personsIte.next();
             else persona= personsIte.previous();
             while (persona.getIsAlive()==false) {
                 if("Izquierda".equals(direccion)) persona=personsIte.next();
                 else persona= personsIte.previous();  
             }
-            
+            } 
         }
     }
     

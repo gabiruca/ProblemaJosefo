@@ -65,7 +65,7 @@ public class View {
             list.add(i);
         }
         numeroNodos.getItems().addAll(list);
-        numeroNodos.setValue(6);
+        numeroNodos.setValue(12);
         numeroNodos.getSelectionModel().selectedIndexProperty().addListener(controller.numNodosListener());
         numeroNodosHbox.getChildren().addAll(numeroNodosLabel,numeroNodos);
         setNodos(numeroNodos.getValue());
@@ -108,7 +108,7 @@ public class View {
         Label saltosLabel= new Label("Saltos:");
         saltosBox= new ChoiceBox<>();
         Stack<Integer> listSaltos= new Stack<>();
-        for (int i=0; i<5;i++) listSaltos.push(i);
+        for (int i=1; i<5;i++) listSaltos.push(i);
         saltosBox.getItems().addAll(listSaltos);
         saltosBox.setValue(1);
         saltosHBox.getChildren().addAll(saltosLabel,saltosBox);

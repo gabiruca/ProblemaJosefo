@@ -59,7 +59,7 @@ public class Controller {
 
     public EventHandler<ActionEvent> botonStopAction(){
         return (ActionEvent event) -> {
-            System.exit(0);
+            System.exit(3);
         };
     }
     
